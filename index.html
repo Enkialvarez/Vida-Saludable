@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa Vida Saludable DGETI – CETIS 43</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde:     #2d6a4f;
+    --verde-med: #40916c;
+    --verde-clr: #74c69d;
+    --tierra:    #7f5539; 
+    --miel:      #e9c46a;
+    --arena:     #fdf6ec;
+    --crema:     #fffdf8;
+    --texto:     #1a1a1a;
+    --gris:      #5c6370;
+    --borde:     #d4e9dc;
+    --sombra:    rgba(45,106,79,.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    line-height: 1.65;
+    font-size: 17px; 
+    user-select: none; 
+  }
+
+  /* ── CABECERA ── */
+  header {
+    background: linear-gradient(135deg, var(--verde) 0%, var(--verde-med) 60%, #1b4332 100%);
+    color: #fff;
+    padding: 3.5rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3Ccircle cx='0' cy='0' r='20'/%3E%3Ccircle cx='60' cy='60' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .header-inner { max-width: 960px; margin: 0 auto; position: relative; }
+  .badge {
+    display: inline-block;
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.35);
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .4rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1.2rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: .8rem;
+  }
+  header h1 span { color: var(--miel); }
+  header p.sub {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    opacity: .9;
+    max-width: 720px;
+  }
+  .meta-chips {
+    display: flex; flex-wrap: wrap; gap: .6rem;
+    margin-top: 1.8rem;
+  }
+  .chip {
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.28);
+    color: #fff;
+    font-size: .85rem;
+    padding: .35rem .9rem;
+    border-radius: 999px;
+  }
+
+  /* ── CONTEXTO Y OBJETIVO ── */
+  .context-bar {
+    background: var(--tierra);
+    color: #fff;
+    padding: 2.5rem 2rem;
+  }
+  .context-bar-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; flex-direction: column; 
+    gap: 2.5rem; 
+  }
+  .context-section h2 {
+    font-size: .95rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    margin-bottom: .8rem; color: rgba(255,255,255,0.9);
+  }
+  .context-section p { 
+    font-size: 1.05rem; 
+    line-height: 1.65; 
+  }
+  
+  .objective-box {
+    background: rgba(0,0,0,0.25); 
+    border-left: 5px solid var(--miel);
+    padding: 1.8rem 2rem;
+    border-radius: 8px;
+  }
+  .objective-box h2 { color: var(--miel); }
+
+  /* ── FUNDAMENTO ── */
+  .fundamento {
+    max-width: 960px; margin: 3rem auto 0;
+    padding: 0 2rem;
+  }
+  .fundamento-box {
+    background: var(--arena);
+    border: 1px solid var(--borde);
+    border-left: 6px solid var(--verde-med);
+    border-radius: 12px;
+    padding: 1.8rem 2.2rem;
+  }
+  .fundamento-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--verde);
+    margin-bottom: 1rem;
+  }
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: .8rem;
+    margin-top: 1rem;
+  }
+  .comp-item {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: .8rem 1.2rem;
+    font-size: .9rem;
+    display: flex; align-items: flex-start; gap: .6rem;
+  }
+  .comp-item .num {
+    background: var(--verde);
+    color: #fff;
+    font-weight: 700; font-size: .75rem;
+    min-width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: .15rem;
+  }
+
+  /* ── SECCIÓN ACTIVIDADES ── */
+  .section-title {
+    max-width: 960px; margin: 3.5rem auto 1.8rem;
+    padding: 0 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--verde);
+  }
+  .section-title span { color: var(--tierra); }
+
+  .activities {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* ── TARJETA ACTIVIDAD ── */
+  .card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 30px var(--sombra);
+    overflow: hidden;
+    border: 1px solid #e8f0eb;
+    transition: transform .22s, box-shadow .22s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 45px var(--sombra); }
+
+  .card-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1.6rem;
+    padding: 1.8rem 2.2rem 1.4rem;
+    border-bottom: 1px solid #edf3ef;
+  }
+  .act-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.4rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--verde-clr);
+    min-width: 65px;
+    text-align: center;
+  }
+  .card-title-area h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--verde);
+    line-height: 1.25;
+  }
+  .card-title-area .tagline {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--gris);
+    margin-top: .3rem;
+  }
+
+  .card-body { padding: 1.6rem 2.2rem 2rem; }
+
+  .info-row {
+    display: flex; flex-wrap: wrap; gap: .6rem;
+    margin-bottom: 1.4rem;
+  }
+  .tag {
+    font-size: .8rem; font-weight: 600;
+    letter-spacing: .04em;
+    padding: .35rem .85rem;
+    border-radius: 999px;
+    border: 1.5px solid transparent;
+  }
+  .tag-comp  { background: #e8f5ee; border-color: var(--verde-clr); color: var(--verde); }
+  .tag-prob  { background: #fff0eb; border-color: #f4a07b; color: var(--tierra); }
+  .tag-dur   { background: #f0f4ff; border-color: #93b4ff; color: #3459bf; }
+  .tag-rec   { background: #fffbe8; border-color: var(--miel); color: #7a5700; }
+
+  .card-body h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gris);
+    margin-bottom: .6rem;
+    margin-top: 1.4rem;
+  }
+  .card-body p { font-size: 1.05rem; color: #333; }
+
+  .steps { list-style: none; display: flex; flex-direction: column; gap: .8rem; }
+  .steps li {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: .8rem;
+    align-items: start;
+    font-size: 1rem;
+  }
+  .steps li .step-dot {
+    width: 32px; height: 32px;
+    background: var(--verde-med);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; font-weight: 700;
+    flex-shrink: 0; margin-top: .15rem;
+  }
+  .steps li p { color: #333; line-height: 1.6; }
+
+  .eval-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: .8rem;
+    margin-top: .6rem;
+  }
+  .eval-item {
+    background: var(--arena);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    font-size: .95rem;
+  }
+  .eval-item strong {
+    display: block;
+    font-size: .8rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-bottom: .4rem;
+  }
+
+  /* color lateral por actividad */
+  .c1 .card-header { border-left: 6px solid #2d6a4f; }
+  .c2 .card-header { border-left: 6px solid #e9c46a; }
+  .c3 .card-header { border-left: 6px solid #b5451b; }
+  .c4 .card-header { border-left: 6px solid #457b9d; }
+  .c5 .card-header { border-left: 6px solid #9b5de5; }
+
+  /* ── PIE ── */
+  footer {
+    background: var(--verde);
+    color: rgba(255,255,255,.8);
+    text-align: center;
+    padding: 2.2rem 2rem;
+    font-size: .9rem;
+  }
+  footer strong { color: #fff; }
+
+  /* ── SELLO ANIMADO ── */
+  .sello-distintivo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    width: 130px;
+    height: 130px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 4px solid var(--tierra);
+    cursor: pointer;
+  }
+  
+  /* Animación más lenta (2s) */
+  @keyframes comer {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-25deg) translate(-8px, -22px); } 
+    100% { transform: rotate(0deg); }
+  }
+  .brazo { animation: comer 2s infinite ease-in-out; transform-origin: 75px 80px; }
+  
+  @keyframes masticar {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.4); }
+  }
+  .boca { animation: masticar 2s infinite ease-in-out; transform-origin: 50px 48px; }
+
+  @media (max-width: 560px) {
+    .card-header { grid-template-columns: 1fr; gap: .8rem; }
+    .act-num { font-size: 2.5rem; min-width: auto; text-align: left; }
+    header h1 { font-size: 1.8rem; }
+    .sello-distintivo { width: 95px; height: 95px; bottom: 20px; right: 20px; }
+  }
+
+  @media print {
+    .card:hover { transform: none; box-shadow: none; }
+    footer { display: none; }
+    .sello-distintivo { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CABECERA -->
+<header>
+  <div class="header-inner">
+    <div class="badge">🌿 DGETI · CETIS 43 · Morelos</div>
+    <h1>Programa <span>Vida Saludable</span><br>en Contextos Vulnerables</h1>
+    <p style="font-family:'DM Sans',sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.85);margin-bottom:.6rem;margin-top:.4rem;">
+      👤 Coordinador: <span style="color:#fff;font-weight:700;">Biólogo. Enrique Torres Álvarez</span>
+    </p>
+    <p class="sub">Seis actividades de intervención socioeducativa para el municipio de Xochitepec, diseñadas desde las competencias del Técnico en Vida Saludable DGETI.</p>
+    <div class="meta-chips">
+      <span class="chip">📍 Xochitepec, Morelos</span>
+      <span class="chip">👩‍🏫 Nivel: EMS – CETIS 43</span>
+      <span class="chip">🎯 Zona alta marginación</span>
+      <span class="chip">👨‍👩‍👧 Enfoque familiar y comunitario</span>
+      <span class="chip">📅 Actualización: 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- BARRA DE CONTEXTO Y OBJETIVO -->
+<div class="context-bar">
+  <div class="context-bar-inner">
+    <div class="context-section">
+      <h2>⚠️ Diagnóstico del entorno</h2>
+      <p>Familias disfuncionales · Violencia intrafamiliar · Recursos económicos limitados · Apatía y desinterés escolar · Emociones de tristeza y desmotivación · Bullying entre pares · Baja participación de los padres de familia en la educación de sus hijos. Xochitepec figura en la lista de municipios con atención prioritaria en materia de seguridad en Morelos (Gobierno de Morelos, 2020).</p>
+    </div>
+    <div class="context-section objective-box">
+      <h2>🎯 Objetivo Estratégico del Programa</h2>
+      <p>Implementar intervenciones socioeducativas transversales que promuevan la resiliencia, el autocuidado y la salud integral de los estudiantes, mitigando los factores de riesgo del entorno para favorecer su desarrollo académico y personal en congruencia con los propósitos de la Nueva Escuela Mexicana y el sistema DGETI.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FUNDAMENTO PEDAGÓGICO -->
+<div class="fundamento">
+  <div class="fundamento-box">
+    <h2>📘 Fundamento: Carrera Técnico en Vida Saludable – DGETI</h2>
+    <p style="font-size:1.05rem;color:#444;margin-bottom:.6rem;">
+      El programa forma al estudiante desde una perspectiva inter y transdisciplinaria en <strong>tres esferas principales</strong>: alimentación sana y equilibrada, actividad física, y proyectos de vida saludable (DGETAyCM, 2022). Las siguientes actividades se derivan directamente de sus cinco competencias profesionales:
+    </p>
+    <div class="comp-grid">
+      <div class="comp-item"><div class="num">C1</div><span>Distingue el cuerpo humano y sus procesos vitales</span></div>
+      <div class="comp-item"><div class="num">C2</div><span>Identifica mecanismos de prevención de ECNT</span></div>
+      <div class="comp-item"><div class="num">C3</div><span>Promueve programas de alimentación saludable</span></div>
+      <div class="comp-item"><div class="num">C4</div><span>Promueve programas de actividad física</span></div>
+      <div class="comp-item"><div class="num">C5</div><span>Aplica actividades integrales para la vida saludable</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TÍTULO SECCIÓN -->
+<h2 class="section-title">6 Actividades de <span>Intervención</span></h2>
+
+<!-- ACTIVIDADES -->
+<div class="activities">
+
+  <!-- ACT 1 -->
+  <div class="card c1">
+    <div class="card-header">
+      <div class="act-num">01</div>
+      <div class="card-title-area">
+        <h3>🫀 "Mi Cuerpo, Mi Territorio"</h3>
+        <p class="tagline">Reconocimiento corporal y autocuidado como acto de resistencia ante la violencia</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="tag tag-comp">C1 – Cuerpo y procesos vitales</span>
+        <span class="tag tag-prob">Violencia intrafamiliar · Tristeza</span>
+        <span class="tag tag-dur">⏱ 3 sesiones de 50 min</span>
+        <span class="tag tag-rec">💰 Recursos mínimos</span>
+      </div>
+      <h4>Descripción general</h4>
+      <p>Taller vivencial donde los estudiantes aprenden a identificar las respuestas fisiológicas del cuerpo ante el estrés y la violencia, conectando el conocimiento anatómico con su realidad emocional cotidiana.</p>
+      <h4>Desarrollo de la actividad</h4>
+      <ul class="steps">
+        <li><div class="step-dot">1</div><p><strong>Encuadre y diagnóstico emocional (sesión 1):</strong> "Termómetro de emociones": los estudiantes ubican en siluetas del cuerpo dónde sienten las emociones. Se identifican señales físicas de alarma sin exponer datos personales sensibles.</p></li>
+        <li><div class="step-dot">2</div><p><strong>Conocimiento anatómico aplicado (sesión 2):</strong> Usando láminas impresas, se explica el eje hipotálamo-hipófisis-suprarrenal y su relación con el estrés crónico. Vincula el saber de Laboratorista Clínico con el bienestar.</p></li>
+        <li><div class="step-dot">3</div><p><strong>Plan de autocuidado personal (sesión 3):</strong> Cada alumno elabora un "Pasaporte de Salud Personal" con 5 compromisos de autocuidado adaptados a su contexto socioeconómico.</p></li>
+      </ul>
+      <h4>Evidencias de evaluación</h4>
+      <div class="eval-grid">
+        <div class="eval-item"><strong>Instrumento</strong>Lista de cotejo sobre silueta emocional</div>
+        <div class="eval-item"><strong>Producto</strong>Pasaporte de Salud Personal</div>
+        <div class="eval-item"><strong>Actitudinal</strong>Participación y confidencialidad grupal</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT 2 -->
+  <div class="card c2">
+    <div class="card-header">
+      <div class="act-num">02</div>
+      <div class="card-title-area">
+        <h3>🥗 "Plato del Bienestar con lo que Tenemos"</h3>
+        <p class="tagline">Alimentación nutritiva de bajo costo como estrategia de salud familiar</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="tag tag-comp">C3 – Programas de alimentación</span>
+        <span class="tag tag-prob">Recursos limitados · Familia</span>
+        <span class="tag tag-dur">⏱ 2 sesiones + práctica domiciliaria</span>
+        <span class="tag tag-rec">💰 Ingredientes locales</span>
+      </div>
+      <h4>Descripción general</h4>
+      <p>Taller práctico de nutrición contextualizado al mercado local de Xochitepec, que enseña a diseñar menús nutritivos con presupuesto limitado.</p>
+      <h4>Desarrollo de la actividad</h4>
+      <ul class="steps">
+        <li><div class="step-dot">1</div><p><strong>Diagnóstico alimentario familiar:</strong> Los alumnos realizan un diario alimentario de 3 días en su hogar e identifican carencias nutricionales.</p></li>
+        <li><div class="step-dot">2</div><p><strong>Sesión teórico-práctica:</strong> Análisis comparativo de precios. Los equipos diseñan un "Menú Semanal Saludable" con un presupuesto de $100-$150 por persona usando alimentos autóctonos.</p></li>
+        <li><div class="step-dot">3</div><p><strong>Demostración culinaria:</strong> Preparación de recetas económicas. Los estudiantes llevan la receta a casa y la preparan con su familia.</p></li>
+      </ul>
+      <h4>Evidencias de evaluación</h4>
+      <div class="eval-grid">
+        <div class="eval-item"><strong>Instrumento</strong>Rúbrica del menú semanal</div>
+        <div class="eval-item"><strong>Producto</strong>Recetario de bajo costo</div>
+        <div class="eval-item"><strong>Vinculación</strong>Evidencia fotográfica en casa</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT 3 -->
+  <div class="card c3">
+    <div class="card-header">
+      <div class="act-num">03</div>
+      <div class="card-title-area">
+        <h3>🏃 "Actívate: Tu Energía Cambia el Ambiente"</h3>
+        <p class="tagline">Rutinas de actividad física grupal para combatir la apatía y el sedentarismo</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="tag tag-comp">C4 – Actividad física</span>
+        <span class="tag tag-prob">Apatía · Desinterés · Tristeza</span>
+        <span class="tag tag-dur">⏱ Semanal continua</span>
+        <span class="tag tag-rec">💰 Sin costo</span>
+      </div>
+      <h4>Descripción general</h4>
+      <p>Programa de activación física progresiva implementado en los espacios del plantel, diseñado para estudiantes con baja motivación.</p>
+      <h4>Desarrollo de la actividad</h4>
+      <ul class="steps">
+        <li><div class="step-dot">1</div><p><strong>Evaluación física inicial:</strong> Medición de indicadores básicos: frecuencia cardíaca en reposo, prueba de los 6 minutos y flexibilidad.</p></li>
+        <li><div class="step-dot">2</div><p><strong>Rutinas progresivas:</strong> 3 veces por semana, 20-30 minutos de activación que combinan calentamiento, circuito de resistencia con materiales reciclados y estiramientos.</p></li>
+        <li><div class="step-dot">3</div><p><strong>Reflexión socioemocional al cierre:</strong> Al terminar cada sesión, los alumnos verbalizan cómo se sienten antes y después del ejercicio.</p></li>
+      </ul>
+      <h4>Evidencias de evaluación</h4>
+      <div class="eval-grid">
+        <div class="eval-item"><strong>Instrumento</strong>Ficha de seguimiento físico</div>
+        <div class="eval-item"><strong>Proceso</strong>Lista de asistencia y participación</div>
+        <div class="eval-item"><strong>Reflexión</strong>Diario de emociones semanal</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT 4 -->
+  <div class="card c4">
+    <div class="card-header">
+      <div class="act-num">04</div>
+      <div class="card-title-area">
+        <h3>💬 "Círculos de Paz: Hablemos sin Miedo"</h3>
+        <p class="tagline">Habilidades socioemocionales, prevención del bullying y gestión del conflicto</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="tag tag-comp">C5 – Actividades integrales</span>
+        <span class="tag tag-prob">Bullying · Violencia</span>
+        <span class="tag tag-dur">⏱ 4 sesiones de 50 min</span>
+        <span class="tag tag-rec">💰 Recursos mínimos</span>
+      </div>
+      <h4>Descripción general</h4>
+      <p>Taller de habilidades socioemocionales basado en Círculos Restaurativos y Comunicación No Violenta. Atiende el bullying y la regulación emocional.</p>
+      <h4>Desarrollo de la actividad</h4>
+      <ul class="steps">
+        <li><div class="step-dot">1</div><p><strong>Nombrar las emociones:</strong> Los estudiantes identifican y nombran sus emociones sin juicio. Se establece acuerdo de confidencialidad.</p></li>
+        <li><div class="step-dot">2</div><p><strong>¿Qué es el bullying y cómo me afecta?:</strong> Mediante sociodramas, los alumnos identifican tipos de violencia entre pares y rutas de denuncia segura.</p></li>
+        <li><div class="step-dot">3</div><p><strong>Comunicación No Violenta:</strong> Práctica del modelo Observación-Emoción-Necesidad-Petición con casos de Xochitepec.</p></li>
+        <li><div class="step-dot">4</div><p><strong>Mi red de apoyo:</strong> Cada alumno construye visualmente su "red de apoyo" (personas, instituciones). Se presentan recursos locales (DIF, SAPTEL).</p></li>
+      </ul>
+      <h4>Evidencias de evaluación</h4>
+      <div class="eval-grid">
+        <div class="eval-item"><strong>Instrumento</strong>Rúbrica de participación en sociodrama</div>
+        <div class="eval-item"><strong>Producto</strong>Mapa de red de apoyo personal</div>
+        <div class="eval-item"><strong>Actitudinal</strong>Escala de actitudes ante conflicto</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT 5 -->
+  <div class="card c5">
+    <div class="card-header">
+      <div class="act-num">05</div>
+      <div class="card-title-area">
+        <h3>🛡️ "Escudo Protector: Factores de Riesgo y Resiliencia"</h3>
+        <p class="tagline">Prevención de adicciones y reconocimiento de entornos de riesgo</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="tag tag-comp">C2 – Prevención de ECNT</span>
+        <span class="tag tag-prob">Entornos de riesgo</span>
+        <span class="tag tag-dur">⏱ 3 sesiones de 50 min</span>
+        <span class="tag tag-rec">💰 Material impreso</span>
+      </div>
+      <h4>Descripción general</h4>
+      <p>Taller de prevención de adicciones y construcción de resiliencia. Vincula la fisiología de la adicción con el rol del Técnico en Vida Saludable.</p>
+      <h4>Desarrollo de la actividad</h4>
+      <ul class="steps">
+        <li><div class="step-dot">1</div><p><strong>Fisiología de la adicción:</strong> Explicación accesible del sistema de recompensa y cómo las sustancias alteran el cerebro adolescente.</p></li>
+        <li><div class="step-dot">2</div><p><strong>Mi escudo de protección:</strong> Identificación de factores de riesgo y protectores mediante la dinámica "El árbol de la resiliencia".</p></li>
+        <li><div class="step-dot">3</div><p><strong>Rol en la comunidad:</strong> Los estudiantes diseñan una estrategia de promoción de salud dirigida a adolescentes de su colonia.</p></li>
+      </ul>
+      <h4>Evidencias de evaluación</h4>
+      <div class="eval-grid">
+        <div class="eval-item"><strong>Instrumento</strong>Lista de cotejo del árbol de resiliencia</div>
+        <div class="eval-item"><strong>Producto</strong>Material de difusión para la comunidad</div>
+        <div class="eval-item"><strong>Reflexivo</strong>Texto: "Lo que aprendí de mí mismo"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT 6 – DISEÑO ESPECIAL -->
+  <div style="
+    background: linear-gradient(145deg,#06312a 0%,#06a77d 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 45px rgba(6,167,125,.28);
+    overflow: hidden;
+    border: none;
+    color:#fff;
+  ">
+    <!-- Header especial -->
+    <div style="padding:2rem 2.2rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,.12);">
+      <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
+        <div style="
+          background:rgba(255,255,255,.15);
+          border:2px solid rgba(255,255,255,.35);
+          border-radius:14px;
+          padding:.6rem 1.2rem;
+          font-family:'Playfair Display',serif;
+          font-size:2.8rem; font-weight:900;
+          line-height:1; color:#fff;
+          flex-shrink:0;
+        ">06</div>
+        <div>
+          <div style="font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:.4rem;">Actividad de Cierre</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;line-height:1.2;color:#fff;">
+            "Emprendedores de la Salud Comunitaria"
+          </h3>
+          <p style="font-family:'Source Serif 4',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,.8);margin-top:.4rem;">
+            Proyecto integrador de vida saludable con impacto en la colonia
+          </p>
+        </div>
+      </div>
+      <!-- Tags -->
+      <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem;">
+        <span style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:999px;font-size:.8rem;font-weight:600;padding:.35rem .85rem;color:#fff;">C5 – Actividades integrales</span>
+        <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:999px;font-size:.8rem;font-weight:600;padding:.35rem .85rem;color:#fff;">⏱ Proyecto bimestral</span>
+        <span style="background:rgba(233,196,106,.2);border:1px solid rgba(233,196,106,.4);border-radius:999px;font-size:.8rem;font-weight:600;padding:.35rem .85rem;color:#ffe89a;">💰 Emprendimiento de bajo costo</span>
+      </div>
+    </div>
+
+    <!-- Contenido principal de Opciones -->
+    <div style="padding:1.6rem 2.2rem 1rem;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:#fff;margin-bottom:1.2rem;margin-top:.4rem;">OPCIONES DE PROYECTOS (ESTUDIANTES ELIGEN)</h2>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;">
+        
+        <!-- Opción A -->
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1.6rem;">
+          <div style="display:flex;gap:1.2rem;align-items:start;">
+            <div style="min-width:36px;height:36px;background:#06a77d;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;flex-shrink:0;margin-top:.2rem;">A</div>
+            <div>
+              <p style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.6rem;">Huerto escolar / jardín medicinal:</p>
+              <p style="font-size:.95rem;color:rgba(255,255,255,.85);line-height:1.6;">Instalación de un huerto con plantas medicinales o verduras de la región. Los estudiantes documentan el proceso y calculan el valor nutricional.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opción B -->
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1.6rem;">
+          <div style="display:flex;gap:1.2rem;align-items:start;">
+            <div style="min-width:36px;height:36px;background:#06a77d;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;flex-shrink:0;margin-top:.2rem;">B</div>
+            <div>
+              <p style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.6rem;">Brigada de salud comunitaria:</p>
+              <p style="font-size:.95rem;color:rgba(255,255,255,.85);line-height:1.6;">Jornada de salud en la colonia: toma de presión, glucosa, peso y talla, orientación nutricional y activación física.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opción C -->
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1.6rem;">
+          <div style="display:flex;gap:1.2rem;align-items:start;">
+            <div style="min-width:36px;height:36px;background:#06a77d;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;flex-shrink:0;margin-top:.2rem;">C</div>
+            <div>
+              <p style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.6rem;">Campaña 'Xochitepec Activo y Sano':</p>
+              <p style="font-size:.95rem;color:rgba(255,255,255,.85);line-height:1.6;">Producción de materiales de difusión (carteles, videos cortos) sobre alimentación saludable y prevención de adicciones.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opción D -->
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1.6rem;">
+          <div style="display:flex;gap:1.2rem;align-items:start;">
+            <div style="min-width:36px;height:36px;background:#06a77d;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;flex-shrink:0;margin-top:.2rem;">D</div>
+            <div>
+              <p style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.6rem;">Taller para padres de familia:</p>
+              <p style="font-size:.95rem;color:rgba(255,255,255,.85);line-height:1.6;">Sesión dirigida a tutores sobre alimentación nutritiva, señales de alarma emocional en adolescentes y rutas de apoyo institucional.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /grid options -->
+    </div>
+
+    <!-- Evaluación actualizada para proyectos -->
+    <div style="padding:1rem 2.2rem 2.2rem;">
+      <div style="font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.8rem;">📝 Evidencias de evaluación del proyecto</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;">
+        <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:1rem 1.2rem;">
+          <strong style="display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#e9c46a;margin-bottom:.4rem;">Instrumento</strong>
+          <span style="font-size:.95rem;color:rgba(255,255,255,.9);">Reporte escrito y cronograma</span>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:1rem 1.2rem;">
+          <strong style="display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#e9c46a;margin-bottom:.4rem;">Producto</strong>
+          <span style="font-size:.95rem;color:rgba(255,255,255,.9);">Materiales y presentación final</span>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:1rem 1.2rem;">
+          <strong style="display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#e9c46a;margin-bottom:.4rem;">Reflexivo</strong>
+          <span style="font-size:.95rem;color:rgba(255,255,255,.9);">Autoevaluación del equipo</span>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:1rem 1.2rem;">
+          <strong style="display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#e9c46a;margin-bottom:.4rem;">Rúbrica</strong>
+          <span style="font-size:.95rem;color:rgba(255,255,255,.9);">Rúbrica de evaluación final</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EL PUNTO 1 + FORMULARIO REAL INCRUSTADO (Movido al final y reducido) -->
+    <div style="padding:2.2rem; border-top: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.1);">
+      
+      <div style="background: rgba(0,0,0,0.25); padding: 1.8rem; border-radius: 12px; border-left: 5px solid var(--miel);">
+        <div style="display: flex; gap: 1rem; align-items: start; margin-bottom: 1.4rem;">
+          <div style="min-width: 30px; height: 30px; background: var(--miel); color: #1b4332; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .95rem; font-weight: 900; flex-shrink: 0;">1</div>
+          <p style="font-size: 1.05rem; color: #fff; line-height: 1.6; margin: 0;">
+            El docente deberá subir la evidencia de su proyecto en formato PDF mediante el siguiente formulario. Los archivos se enviarán automáticamente a la unidad segura de coordinación.
+          </p>
+        </div>
+
+        <!-- Módulo real de subida con Google Forms - RECORTADO -->
+        <div style="background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px dashed rgba(255,255,255,0.3); overflow: hidden; height: 320px;">
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe43fZtO-54Z8L-fUjtukiNyoQESI_5PuX7ODm3qXDNtQJRbw/viewform?embedded=true" width="100%" height="320" frameborder="0" marginheight="0" marginwidth="0" style="border: none;">Cargando…</iframe>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ACT 6 -->
+
+</div><!-- /activities -->
+
+<!-- PIE -->
+<footer>
+  <p><strong>Programa Técnico en Vida Saludable – DGETI</strong> | Implementación contextualizada para Xochitepec, Morelos</p>
+  <p style="margin-top:.5rem;">Elaborado con base en: DGETAyCM (2022). <em>Programa de estudios: Vida Saludable.</em> SEP-DGETI. · CONAPO (2020). <em>Índice de Marginación Municipal.</em> · Gobierno de Morelos (2020). <em>Mesa de Coordinación para la Paz.</em></p>
+  <p style="margin-top:.5rem;opacity:.7;">Contacto de apoyo emocional: SAPTEL · (55) 5259-8121 · 24 h · Gratuito</p>
+</footer>
+
+<!-- SELLO DISTINTIVO ANIMADO (SVG CON CSS) -->
+<div class="sello-distintivo" title="Sello distintivo Vida Saludable">
+  <svg viewBox="0 0 100 100" width="100%" height="100%">
+    <!-- Cuerpo (sobrepeso) -->
+    <ellipse cx="50" cy="95" rx="38" ry="35" fill="#40916c" />
+    <!-- Cabeza -->
+    <circle cx="50" cy="45" r="22" fill="#ffcdb2" />
+    <!-- Ojos -->
+    <circle cx="42" cy="38" r="2.5" fill="#1a1a1a" />
+    <circle cx="58" cy="38" r="2.5" fill="#1a1a1a" />
+    <!-- Boca (Animada) -->
+    <ellipse class="boca" cx="50" cy="48" rx="6" ry="4" fill="#6a040f" />
+    <!-- Bolsa de frituras -->
+    <rect x="5" y="65" width="35" height="40" rx="4" fill="#b5451b" />
+    <text x="10" y="85" font-size="10" fill="white" font-weight="bold" font-family="sans-serif" transform="rotate(-15 20 85)">CHIPS</text>
+    <!-- Brazo animado con la papita amarilla -->
+    <g class="brazo">
+      <path d="M 85 80 Q 70 95 50 60" stroke="#ffcdb2" stroke-width="12" fill="none" stroke-linecap="round" />
+      <ellipse cx="50" cy="60" rx="7" ry="5" fill="#e9c46a" transform="rotate(30 50 60)" />
+    </g>
+  </svg>
+</div>
+
+<!-- SCRIPT DE PROTECCIÓN BÁSICA CONTRA INSPECCIÓN -->
+<script>
+  // Bloquear menú contextual (clic derecho)
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  // Bloquear atajos de teclado para ver código o herramientas de desarrollador
+  document.onkeydown = function(e) {
+    // F12
+    if (e.keyCode === 123) { 
+      return false; 
+    }
+    // Ctrl+Shift+I / Cmd+Option+I (Herramientas de desarrollador)
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) { 
+      return false; 
+    }
+    // Ctrl+Shift+J / Cmd+Option+J (Consola)
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) { 
+      return false; 
+    }
+    // Ctrl+U / Cmd+U (Ver código fuente)
+    if (e.ctrlKey && e.keyCode === 85) { 
+      return false; 
+    }
+    // Ctrl+S / Cmd+S (Guardar página)
+    if (e.ctrlKey && e.keyCode === 83) {
+      e.preventDefault();
+      return false;
+    }
+  };
+</script>
+
+</body>
+</html>
